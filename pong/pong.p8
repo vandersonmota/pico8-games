@@ -66,20 +66,21 @@ function p1_hit(p1, ball)
 end
 
 function set_direction(direction, ball)
-end
-
-function _update()
-  if p2_hit(p2, ball) then
-    ball.direction = 'up'
-  elseif p1_hit(p1, ball) then
-    ball.y -= speed
-    ball.direction = 'down'
-  end
+  ball.direction = direction
   if ball.direction == 'up' then
     ball.y += speed
   else
     ball.y -= speed
   end
+end
+
+function _update()
+  if p2_hit(p2, ball) then
+    direction = 'up'
+  elseif p1_hit(p1, ball) then
+    direction = 'down'
+  end
+  set_direction(direction, ball)
 end
 
 function _draw()
