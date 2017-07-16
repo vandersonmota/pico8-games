@@ -82,6 +82,14 @@ function set_direction(direction, ball)
   end
 end
 
+function wall_bounce(ball)
+  if ball.x == 0 then
+    ball.turning = 'right'
+  elseif ball.x == screen_x then
+    ball.turning = 'left'
+  end
+end
+
 function _update()
   if p2_hit(p2, ball) then
     direction = 'up'
@@ -89,17 +97,18 @@ function _update()
     direction = 'down'
   end
   set_direction(direction, ball)
+  wall_bounce(ball)
   if ball.direction == 'down' then
     if ball.turning == 'left' then
-      ball.x -= 1
+      ball.x -= 2.4
     elseif ball.turning == 'right' then
-      ball.x += 1
+      ball.x += 2.4
     end
   elseif ball.turning == 'up' then
     if ball.turning == 'left' then
-      ball.x += 1
+      ball.x += 2.4
     elseif ball.turning == 'right' then
-      ball.x -= 1
+      ball.x -= 2.4
     end
   end
 end
