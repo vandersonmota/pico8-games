@@ -10,13 +10,13 @@ bg_color = 2
 p1 = {
   x0 = 44, x1 = 74,
   y0 = 110, y1 = 115,
-  p_color = 6,
+  p_color = 6, score = 0,
 }
 
 p2 = {
   x0 = 44, x1 = 74,
   y0 = 20, y1 = 25,
-  p_color = 9
+  p_color = 9, score = 0,
 }
 
 ball = {
@@ -83,11 +83,35 @@ function set_direction(direction, ball)
 end
 
 function wall_bounce(ball)
-  if ball.x == 0 then
+  if ball.x <= 0 then
     ball.turning = 'right'
-  elseif ball.x == screen_x then
+  elseif ball.x >= screen_x then
     ball.turning = 'left'
   end
+end
+
+function goal(ball)
+  if ball.y <= 0 then
+    p1.score += 1
+    reset_elements()
+  elseif ball.y >= screen_y then
+    p2.score += 1
+    reset_elements()
+  end
+end
+
+function reset_elements()
+  p1.x0 = 44
+  p2.x0 = 44
+  p1.x1 = 74
+  p2.x1 = 74
+
+  p1.y0, p2.y1 = 110, 115
+  p2.y0, p2.y1 = 20, 25
+
+  ball.x, ball.y = 64, 107
+  ball.direction = 'up'
+  ball.turning = nil
 end
 
 function _update()
@@ -97,7 +121,6 @@ function _update()
     direction = 'down'
   end
   set_direction(direction, ball)
-  wall_bounce(ball)
   if ball.direction == 'down' then
     if ball.turning == 'left' then
       ball.x -= 2.4
@@ -111,6 +134,8 @@ function _update()
       ball.x -= 2.4
     end
   end
+  wall_bounce(ball)
+  goal(ball)
 end
 
 function _draw()
