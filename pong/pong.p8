@@ -130,18 +130,10 @@ function _update()
     direction = 'down'
   end
   set_direction(direction, ball)
-  if ball.direction == 'down' then
-    if ball.turning == 'left' then
-      ball.x -= 2.4
-    elseif ball.turning == 'right' then
-      ball.x += 2.4
-    end
-  elseif ball.turning == 'up' then
-    if ball.turning == 'left' then
-      ball.x += 2.4
-    elseif ball.turning == 'right' then
-      ball.x -= 2.4
-    end
+  if ball.turning == 'left' then
+    ball.x -= 2.4
+  elseif ball.turning == 'right' then
+    ball.x += 2.4
   end
   wall_bounce(ball)
   goal(ball)
