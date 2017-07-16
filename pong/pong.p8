@@ -33,6 +33,8 @@ function draw_elements()
   rectfill(p1.x0, p1.y0, p1.x1, p1.y1, p1.p_color)
   rectfill(p2.x0, p2.y0, p2.x1, p2.y1, p2.p_color)
   circfill(ball.x, ball.y, ball.radius, ball.color)
+  print("score: " .. p2.score, 0, 0, 7)
+  print("score: " .. p1.score, 0, 123, 7)
 end
 
 function go_left(player)
@@ -136,6 +138,8 @@ function _update()
   end
   wall_bounce(ball)
   goal(ball)
+  cursor()
+  print('2akshdkjahdskjahdkjhakdshakjdshakjhdkhasdhjakdkjahdskjhad', 0, 0, 7)
 end
 
 function _draw()
