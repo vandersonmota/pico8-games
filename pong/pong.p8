@@ -23,6 +23,7 @@ ball = {
   x = 64,  y = 107,
   radius = 2, color = 7,
   direction = 'up',
+  turning = nil,
 }
 
 speed = 2
@@ -72,6 +73,13 @@ function set_direction(direction, ball)
   else
     ball.y -= speed
   end
+  if p1_hit(p1, ball) then
+    if is_going('right') then
+      ball.turning = 'left'
+    elseif is_going('left') then
+      ball.turning = 'right'
+    end
+  end
 end
 
 function _update()
@@ -81,6 +89,19 @@ function _update()
     direction = 'down'
   end
   set_direction(direction, ball)
+  if ball.direction == 'down' then
+    if ball.turning == 'left' then
+      ball.x -= 1
+    elseif ball.turning == 'right' then
+      ball.x += 1
+    end
+  elseif ball.turning == 'up' then
+    if ball.turning == 'left' then
+      ball.x += 1
+    elseif ball.turning == 'right' then
+      ball.x -= 1
+    end
+  end
 end
 
 function _draw()
