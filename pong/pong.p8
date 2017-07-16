@@ -51,10 +51,10 @@ function go_right(player)
   end
 end
 
-function is_going(direction)
-  if direction == 'right' and btn(1,0) then
+function is_going(direction, player)
+  if direction == 'right' and btn(1, player) then
     return true
-  elseif direction == 'left' and btn(0,0) then
+  elseif direction == 'left' and btn(0, player) then
     return true
   end
   return false
@@ -76,9 +76,16 @@ function set_direction(direction, ball)
     ball.y -= speed
   end
   if p1_hit(p1, ball) then
-    if is_going('right') then
+    if is_going('right', 0) then
       ball.turning = 'left'
-    elseif is_going('left') then
+    elseif is_going('left', 0) then
+      ball.turning = 'right'
+    end
+  end
+  if p2_hit(p2, ball) then
+    if is_going('right', 1) then
+      ball.turning = 'left'
+    elseif is_going('left', 1) then
       ball.turning = 'right'
     end
   end
@@ -138,17 +145,20 @@ function _update()
   end
   wall_bounce(ball)
   goal(ball)
-  cursor()
-  print('2akshdkjahdskjahdkjhakdshakjdshakjhdkhasdhjakdkjahdskjhad', 0, 0, 7)
 end
 
 function _draw()
   cls(5)
   draw_elements()
-  if is_going('left') then
+  if is_going('left', 0) then
     go_left(p1)
-  elseif is_going('right') then
+  elseif is_going('right', 0) then
     go_right(p1)
+  end
+  if is_going('left', 1) then
+    go_left(p2)
+  elseif is_going('right', 1) then
+    go_right(p2)
   end
 end
 
